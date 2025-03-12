@@ -1,5 +1,5 @@
 import { BehaviorSubject, map } from "rxjs";
-import { Keys, ResultSelect, ResultSelectSignal, Store, SubjectValue, Values,  } from "./store.model";
+import { Keys, ResultSelect, ResultSelectSignal, Store, SubjectValue, Values,  } from "./general-store.model";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 export abstract class GeneralStoreService<T> {

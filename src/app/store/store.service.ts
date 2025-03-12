@@ -1,6 +1,6 @@
 import { Injectable,} from '@angular/core';
+import { Store } from './general-store.model';
 import { GeneralStoreService } from './general-store.service';
-import { Store } from './store.model';
 
 type initStore = { user: string; token: string; email: string | null };
 
