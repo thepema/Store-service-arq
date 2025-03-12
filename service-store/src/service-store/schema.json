@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "my-service",
+    "title": "My Service Schema",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The name of the service"
+      }
+    },
+    "required": ["name"]
+  }

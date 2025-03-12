@@ -1,0 +1,10 @@
+  {
+    "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+      "my-service": {
+        "description": "A schematic to generate a store service",
+        "factory": "./my-schematics/index#myService",
+        "schema": "./my-schematics/schema.json"
+      }
+    }
+  }

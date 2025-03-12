@@ -1,0 +1,26 @@
+import { Injectable, OnInit, signal } from '@angular/core';
+import { GeneralStoreService } from './general-store.service';
+import { Store } from './store.model';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+@Injectable()
+export class <%= classify(name) %>Service extends GeneralStoreService {
+    protected override initValueStore: Store = {
+        user: 'initial',
+        token: 'null',
+        email: null,
+    };
+
+    // signals para consumir los datos
+    public user$ = toSignal(this.select('user'));
+    public token$ = toSignal(this.select('token'));
+    public email$ = toSignal(this.select('email'));
+
+    constructor() {
+        super();
+    }
+
+    initStore(): void {
+        this.init();
+    }
+}
