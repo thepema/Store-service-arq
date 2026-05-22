@@ -1,6 +1,6 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 import { Keys, Store, SubjectValue, Values } from './general-store.model';
 
 export abstract class GeneralStoreService<T> {
@@ -30,11 +30,13 @@ export abstract class GeneralStoreService<T> {
    * @param id
    */
   select<K extends Keys<T>>(id: K): Observable<T[K]> {
-    return this._storeSubject.pipe(
-      map((data: SubjectValue<T>) => {
-        return data ? (data as Store<T>)[id] : undefined;
-      })
-    ) as Observable<T[K]>;
+    return (
+      this._storeSubject.pipe(
+        map((data: SubjectValue<T>) => {
+          return data ? (data as Store<T>)[id] : undefined;
+        })
+      ) as Observable<T[K]>
+    ).pipe(distinctUntilChanged());
   }
 
   /**
@@ -43,11 +45,13 @@ export abstract class GeneralStoreService<T> {
    */
   selectToSignal<K extends Keys<T>>(id: K): Signal<T[K]> {
     return toSignal(
-      this._storeSubject.pipe(
-        map((data: SubjectValue<T>) => {
-          return data ? (data as Store<T>)[id] : undefined;
-        })
-      )
+      (
+        this._storeSubject.pipe(
+          map((data: SubjectValue<T>) => {
+            return data ? (data as Store<T>)[id] : undefined;
+          })
+        ) as Observable<T[K]>
+      ).pipe(distinctUntilChanged())
     ) as Signal<T[K]>;
   }
 
